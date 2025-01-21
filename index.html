@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HotDrive Game</title>
+  <style>
+    /* Estilos CSS */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f7f7f7;
+    }
+
+    .loading-screen, .character-creation, .driver-selection {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+
+    .loading-screen {
+      background-color: #000;
+      color: #fff;
+    }
+
+    .character-creation, .driver-selection {
+      display: none;
+    }
+
+    .character-creation input, .character-creation button, .driver-selection button {
+      margin: 10px 0;
+      padding: 10px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      width: 80%;
+      max-width: 300px;
+    }
+
+    .character-creation button, .driver-selection button {
+      background-color: #4caf50;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+
+    .character-creation button:hover, .driver-selection button:hover {
+      background-color: #388e3c;
+    }
+
+    .avatars {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .avatar {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      border: 2px solid #ccc;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+  </style>
+</head>
+<body>
+  <!-- Pantalla de carga -->
+  <div class="loading-screen" id="loading-screen">
+    <h1>HotDrive Game</h1>
+    <button onclick="showCharacterCreation()">Play</button>
+  </div>
+
+  <!-- Creación de personaje -->
+  <div class="character-creation" id="character-creation">
+    <h2>Crear Personaje</h2>
+    <label>
+      <input type="radio" name="gender" value="hombre"> Hombre
+    </label>
+    <label>
+      <input type="radio" name="gender" value="mujer"> Mujer
+    </label>
+    <input type="text" id="user-name" placeholder="Ingresa tu nombre">
+    <input type="file" id="user-avatar" accept="image/*">
+    <button onclick="createCharacter()">Crear Personaje</button>
+  </div>
+
+  <!-- Selección de conductor -->
+  <div class="driver-selection" id="driver-selection">
+    <h2>Selecciona el Conductor</h2>
+    <button onclick="selectDriver('hombre')">Hombre</button>
+    <button onclick="selectDriver('mujer')">Mujer</button>
+    <div class="avatars">
+      <img id="user-avatar-display" src="" alt="Avatar del usuario" class="avatar">
+      <img id="driver-avatar-display" src="" alt="Avatar del conductor" class="avatar">
+    </div>
+  </div>
+
+  <script>
+    const loadingScreen = document.getElementById('loading-screen');
+    const characterCreation = document.getElementById('character-creation');
+    const driverSelection = document.getElementById('driver-selection');
+    const userNameInput = document.getElementById('user-name');
+    const userAvatarInput = document.getElementById('user-avatar');
+    const userAvatarDisplay = document.getElementById('user-avatar-display');
+    const driverAvatarDisplay = document.getElementById('driver-avatar-display');
+
+    let userName = '';
+    let userAvatarUrl = '';
+
+    const maleNames = [
+      "Carlos", "Juan", "Pedro", "Luis", "Jorge", "Miguel", "José", "Antonio", "Francisco", "David",
+      "Manuel", "Javier", "Rafael", "Daniel", "Alejandro", "Fernando", "Sergio", "Eduardo", "Roberto", "Ricardo",
+      "Andrés", "Mario", "Enrique", "Hugo", "Pablo", "Ramón", "Vicente", "Ángel", "Adrián", "Diego"
+    ];
+
+    const femaleNames = [
+      "Ana", "María", "Carmen", "Laura", "Isabel", "Marta", "Sara", "Lucía", "Elena", "Sofía",
+      "Paula", "Clara", "Teresa", "Rosa", "Cristina", "Patricia", "Beatriz", "Julia", "Irene", "Silvia",
+      "Alicia", "Eva", "Raquel", "Sandra", "Lorena", "Natalia", "Pilar", "Victoria", "Andrea", "Verónica"
+    ];
+
+    const driverAvatars = [
+      "https://via.placeholder.com/100?text=Driver1",
+      "https://via.placeholder.com/100?text=Driver2",
+      "https://via.placeholder.com/100?text=Driver3",
+      "https://via.placeholder.com/100?text=Driver4",
+      "https://via.placeholder.com/100?text=Driver5"
+    ];
+
+    const showCharacterCreation = () => {
+      loadingScreen.style.display = 'none';
+      characterCreation.style.display = 'flex';
+    };
+
+    const createCharacter = () => {
+      const gender = document.querySelector('input[name="gender"]:checked').value;
+      userName = userNameInput.value;
+      const userAvatar = userAvatarInput.files[0];
+
+      if (userName && userAvatar && gender) {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          userAvatarUrl = e.target.result;
+          userAvatarDisplay.src = userAvatarUrl;
+          characterCreation.style.display = 'none';
+          driverSelection.style.display = 'flex';
+        };
+        reader.readAsDataURL(userAvatar);
+      } else {
+        alert("Por favor, completa todos los campos.");
+      }
+    };
+
+    const selectDriver = (driverGender) => {
+      const randomName = driverGender === 'hombre' ? maleNames[Math.floor(Math.random() * maleNames.length)] : femaleNames[Math.floor(Math.random() * femaleNames.length)];
+      const randomAvatar = driverAvatars[Math.floor(Math.random() * driverAvatars.length)];
+      driverAvatarDisplay.src = randomAvatar;
+      alert(`Conductor seleccionado: ${randomName}`);
+      // Aquí puedes agregar la lógica para iniciar el juego con el conductor seleccionado
+    };
+  </script>
+</body>
+</html>
