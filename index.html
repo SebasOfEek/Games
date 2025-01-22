@@ -13,24 +13,120 @@
       background-color: #f7f7f7;
     }
 
-    .loading-screen, .character-creation, .driver-selection {
+     .character-creation, .destination-selection {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 91vh;
+    }
+
+    input {
+  margin: 30px;
+  background: none;
+  border: 1px solid #353535;
+  outline: none;
+  max-width: 200px;
+  padding: 11px 23px;
+  font-size: 16px;
+  border-radius: 50px;
+  color: #979797;
+  box-shadow: 
+    rgb(136 136 136 / 17%) 0px -23px 25px 0px inset,
+    rgb(81 81 81 / 23%) 0px -36px 30px 0px inset,
+    rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset, 
+    rgba(0, 0, 0, 0.06) 0px 2px 1px, 
+    rgba(0, 0, 0, 0.09) 0px 4px 2px, 
+    rgba(0, 0, 0, 0.09) 0px 8px 4px, 
+    rgba(0, 0, 0, 0.09) 0px 16px 8px, 
+    rgba(0, 0, 0, 0.09) 0px 32px 16px;
+}
+
+/* Ajustes adicionales si se desea aplicar estilos únicos */
+input[type="file"] {
+  max-width: none;
+  padding: 10px;
+}
+
+input[type="radio"] {
+  margin: 10px;
+  padding: 5px;
+  border-radius: 0; /* No aplica borde redondeado a los radio buttons */
+  box-shadow: none; /* Sin sombra en radio buttons */
+}
+
+    .driver-selection {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 91vh;
+      position: relative;
+      background: linear-gradient(135deg, #fff, #f0f0f0);
+    }
+
+    .loading-screen {
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       height: 100vh;
-    }
-
-    .loading-screen {
       background-color: #000;
       color: #fff;
     }
 
-    .character-creation, .driver-selection {
+    .loading-screen img {
+      width: 150px;
+      height: auto;
+      animation: pulse 1.5s infinite ease-in-out;
+    }
+
+    @keyframes pulse {
+      0%, 100% {
+        transform: scale(1);
+        opacity: 1;
+      }
+      50% {
+        transform: scale(1.1);
+        opacity: 0.8;
+      }
+    }
+
+    .loading-screen h1 {
+      font-size: 36px;
+      margin: 20px 0;
+    }
+
+    /* Botón personalizado */
+    button {
+      padding: 17px 40px;
+      border-radius: 10px;
+      border: 0;
+      background-color: rgb(255, 56, 86);
+      letter-spacing: 1.5px;
+      font-size: 18px;
+      transition: all 0.3s ease;
+      box-shadow: rgb(201, 46, 70) 0px 10px 0px 0px;
+      color: hsl(0, 0%, 100%);
+      cursor: pointer;
+    }
+
+    button:hover {
+      box-shadow: rgb(201, 46, 70) 0px 7px 0px 0px;
+    }
+
+    button:active {
+      background-color: rgb(255, 56, 86);
+      box-shadow: rgb(201, 46, 70) 0px 0px 0px 0px;
+      transform: translateY(5px);
+      transition: 200ms;
+    }
+
+    .character-creation, .driver-selection, .destination-selection {
       display: none;
     }
 
-    .character-creation input, .character-creation button, .driver-selection button {
+    .character-creation button, .driver-selection button, .destination-selection button {
       margin: 10px 0;
       padding: 10px;
       border-radius: 5px;
@@ -39,77 +135,303 @@
       max-width: 300px;
     }
 
-    .character-creation button, .driver-selection button {
-      background-color: #4caf50;
+    .character-creation button, .driver-selection button, .destination-selection button {
+      background-color: rgb(255, 56, 86);
       color: white;
       border: none;
       cursor: pointer;
     }
 
-    .character-creation button:hover, .driver-selection button:hover {
-      background-color: #388e3c;
+    .character-creation button:hover, .driver-selection button:hover, .destination-selection button:hover {
+      background-color: rgb(201, 46, 70) 0px 7px 0px 0px;
     }
 
     .avatars {
       display: flex;
-      justify-content: center;
-      gap: 20px;
+      justify-content: space-between;
+      width: 100%;
       position: absolute;
       top: 20px;
+      padding: 0 20px;
+      box-sizing: border-box;
+    }
+
+    .avatar-container.user {
+      position: absolute;
+      left: 20px;
+      top: 20px;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .avatar-container.driver {
+      position: absolute;
       right: 20px;
+      top: 20px;
+      display: flex;
+      flex-direction: row-reverse;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .avatar {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      border: 2px solid #ccc;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      object-fit: cover; /* Ensure the avatar occupies the entire circle */
+    }
+
+    .driver-avatar {
+      width: 120px; /* Increase the size of the driver's avatar */
+      height: 120px;
+    }
+
+    .avatar-name {
+      font-size: 16px;
+      font-weight: bold;
+    }
+
+    .progress-bar {
+      width: 100px;
+      height: 10px;
+      background: #ccc;
+      border-radius: 5px;
+      position: relative;
+      box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.1);
+      margin-top: 5px;
+      margin-right: 5px;
+    }
+
+    .progress {
+      width: 0%;
+      height: 100%;
+      background: #e70707;
+      border-radius: 5px;
+      transition: width 0.5s ease-in-out;
+    }
+
+    h2 {
+      font-size: 2.0em;
+    }
+
+    .heart-icon {
+      position: absolute;
+      right: -20px;
+      top: -5px;
+      font-size: 16px;
+    }
+
+    .character-creation {
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      text-align: center;
+    }
+
+    .character-creation h2 {
+      margin-bottom: 20px;
+      font-size: 2.0em;
+    }
+
+    .character-creation label {
+      display: block;
+      margin: 10px 0;
+    }
+
+    .character-creation button {
+      width: calc(100% - 20px);
+      padding: 10px;
+      border-radius: 5px;
+      border: none;
+      background-color: rgb(255, 56, 86);
+      color: white;
+      cursor: pointer;
+      margin-bottom: 10px;
+    }
+
+    .character-creation button:hover {
+      background-color: rgb(201, 46, 70) 0px 7px 0px 0px;
+    }
+
+    .driver-info {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+    }
+
+    .avatar-container.user .avatar-name {
+      margin-left: 10px;
+    }
+
+    select.input {
+      appearance: none;
+      padding-right: 30px;
+      cursor: pointer;
+      background-image: url("data:image/svg+xml,<svg height='10px' width='10px' viewBox='0 0 16 16' fill='%23000000' xmlns='http://www.w3.org/2000/svg'><path d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/></svg>");
+      background-repeat: no-repeat;
+      background-position: calc(100% - 12px) center;
+    }
+
+    /* Estilo común para inputs y select */
+    .input, 
+    select,
+    input[type="text"],
+    input[type="file"] {
+      margin: 20px;
+      background: none;
+      border: 1px solid #353535;
+      outline: none;
+      width: 300px; /* Ancho fijo para todos */
+      max-width: 100%;
+      padding: 11px 23px;
+      font-size: 16px;
+      border-radius: 50px;
+      color: #979797;
+      box-sizing: border-box; /* Para que el padding no afecte el ancho total */
+      box-shadow: 
+        rgb(136 136 136 / 17%) 0px -23px 25px 0px inset,
+        rgb(81 81 81 / 23%) 0px -36px 30px 0px inset,
+        rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset, 
+        rgba(0, 0, 0, 0.06) 0px 2px 1px, 
+        rgba(0, 0, 0, 0.09) 0px 4px 2px, 
+        rgba(0, 0, 0, 0.09) 0px 8px 4px, 
+        rgba(0, 0, 0, 0.09) 0px 16px 8px, 
+        rgba(0, 0, 0, 0.09) 0px 32px 16px;
+    }
+
+    /* Ajuste específico para el input file */
+    input[type="file"] {
+      padding: 8px 23px; /* Ajuste del padding para alinear mejor el texto */
+    }
+
+    /* Contenedor de formulario para alineación */
+    .character-creation {
+      display: flex;
       flex-direction: column;
       align-items: center;
     }
 
-    .avatar {
-      width: 100px;
-      height: 100px;
-      border-radius: 50%;
-      border: 2px solid #ccc;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    /* Estilo de tarjeta para los contenedores principales */
+    .card-container {
+      background: white;
+      border-radius: 20px;
+      box-shadow: 
+        rgba(0, 0, 0, 0.1) 0px 10px 15px -3px,
+        rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
+      margin: 20px;
+      position: relative;
+    }
+
+    .character-creation,
+    .driver-selection,
+    .destination-selection {
+      background: rgba(255, 255, 255, 0.9);
+      backdrop-filter: blur(10px);
+      border-radius: 20px;
+      box-shadow: 
+        rgba(17, 17, 26, 0.1) 0px 4px 16px,
+        rgba(17, 17, 26, 0.05) 0px 8px 32px;
+      width: 90%;
+      max-width: 600px;
+      margin: 30px auto;
+    }
+
+    /* Ajuste para el select */
+    select {
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%23979797' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 20px center;
+      padding-right: 45px;
+      cursor: pointer;
+    }
+
+    #destination-options {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 15px;
+      width: 100%;
+      padding: 20px 0;
+    }
+
+    .destination-selection button {
+      width: 80%;
+      max-width: 300px;
+      margin: 10px auto;
     }
   </style>
 </head>
 <body>
   <!-- Pantalla de carga -->
   <div class="loading-screen" id="loading-screen">
+    <img src="https://github.com/SebasOfEek/Games/blob/main/Logo1.png?raw=true" alt="Logo de labios">
     <h1>HotDrive Game</h1>
     <button onclick="showCharacterCreation()">Play</button>
   </div>
 
+
   <!-- Creación de personaje -->
-  <div class="character-creation" id="character-creation">
+  <div class="character-creation card-container" id="character-creation">
     <h2>Crear Personaje</h2>
-    <label>
-      <input type="radio" name="gender" value="hombre"> Hombre
-    </label>
-    <label>
-      <input type="radio" name="gender" value="mujer"> Mujer
-    </label>
+    <select id="gender-select" class="input">
+      <option value="">Selecciona género</option>
+      <option value="hombre">Hombre</option>
+      <option value="mujer">Mujer</option>
+    </select>
     <input type="text" id="user-name" placeholder="Ingresa tu nombre">
     <input type="file" id="user-avatar" accept="image/*">
     <button onclick="createCharacter()">Crear Personaje</button>
+    <button onclick="createRandomCharacter()">Crear Personaje Aleatorio</button>
   </div>
 
   <!-- Selección de conductor -->
-  <div class="driver-selection" id="driver-selection">
+  <div class="driver-selection card-container" id="driver-selection">
     <h2>Selecciona el Conductor</h2>
     <button onclick="selectDriver('hombre')">Hombre</button>
     <button onclick="selectDriver('mujer')">Mujer</button>
     <div class="avatars">
-      <img id="user-avatar-display" src="" alt="Avatar del usuario" class="avatar">
-      <img id="driver-avatar-display" src="" alt="Avatar del conductor" class="avatar">
+      <div class="avatar-container user">
+        <img id="user-avatar-display" src="" alt="Avatar del usuario" class="avatar">
+        <span id="user-name-display" class="avatar-name"></span>
+      </div>
+      <div class="avatar-container driver">
+        <img id="driver-avatar-display" src="" class="avatar driver-avatar">
+        <div class="driver-info">
+          <span id="driver-name-display" class="avatar-name"></span>
+          <div class="progress-bar" id="driver-progress-bar">
+            <div class="progress" id="driver-progress"></div>
+            <span class="heart-icon">❤️</span>
+          </div>
+        </div>
+      </div>
     </div>
+  </div>
+
+  <!-- Selección de destino -->
+  <div class="destination-selection card-container" id="destination-selection">
+    <h2>Selecciona el Destino</h2>
+    <div id="destination-options"></div>
   </div>
 
   <script>
     const loadingScreen = document.getElementById('loading-screen');
     const characterCreation = document.getElementById('character-creation');
     const driverSelection = document.getElementById('driver-selection');
+    const destinationSelection = document.getElementById('destination-selection');
     const userNameInput = document.getElementById('user-name');
     const userAvatarInput = document.getElementById('user-avatar');
     const userAvatarDisplay = document.getElementById('user-avatar-display');
     const driverAvatarDisplay = document.getElementById('driver-avatar-display');
+    const userNameDisplay = document.getElementById('user-name-display');
+    const driverNameDisplay = document.getElementById('driver-name-display');
+    const driverProgress = document.getElementById('driver-progress');
+    const driverProgressBar = document.getElementById('driver-progress-bar');
+    const destinationOptions = document.getElementById('destination-options');
 
     let userName = '';
     let userAvatarUrl = '';
@@ -126,13 +448,30 @@
       "Alicia", "Eva", "Raquel", "Sandra", "Lorena", "Natalia", "Pilar", "Victoria", "Andrea", "Verónica"
     ];
 
-    const driverAvatars = [
-      "https://via.placeholder.com/100?text=Driver1",
-      "https://via.placeholder.com/100?text=Driver2",
-      "https://via.placeholder.com/100?text=Driver3",
-      "https://via.placeholder.com/100?text=Driver4",
-      "https://via.placeholder.com/100?text=Driver5"
+    const maleAvatars = [
+      "https://github.com/SebasOfEek/Games/blob/main/Img1.png?raw=true",
+      "https://github.com/SebasOfEek/Games/blob/main/Img3.png?raw=true"
     ];
+
+    const femaleAvatars = [
+      "https://github.com/SebasOfEek/Games/blob/main/Img2.png?raw=true",
+      "https://github.com/SebasOfEek/Games/blob/main/Img4.png?raw=true"
+    ];
+
+const destinations = [
+  { name: "Centro", time: Math.floor(Math.random() * (7 - 2 + 1)) + 2 },
+  { name: "Aeropuerto", time: Math.floor(Math.random() * (7 - 2 + 1)) + 2 },
+  { name: "Parque", time: Math.floor(Math.random() * (7 - 2 + 1)) + 2 },
+  { name: "Museo", time: Math.floor(Math.random() * (7 - 2 + 1)) + 2 },
+  { name: "Playa", time: Math.floor(Math.random() * (7 - 2 + 1)) + 2 },
+  { name: "Montaña", time: Math.floor(Math.random() * (7 - 2 + 1)) + 2 },
+  { name: "Centro Comercial", time: Math.floor(Math.random() * (7 - 2 + 1)) + 2 },
+  { name: "Estadio", time: Math.floor(Math.random() * (7 - 2 + 1)) + 2 },
+  { name: "Biblioteca", time: Math.floor(Math.random() * (7 - 2 + 1)) + 2 },
+  { name: "Hospital", time: Math.floor(Math.random() * (7 - 2 + 1)) + 2 },
+  { name: "Teatro", time: Math.floor(Math.random() * (7 - 2 + 1)) + 2 }
+];
+
 
     const showCharacterCreation = () => {
       loadingScreen.style.display = 'none';
@@ -140,7 +479,8 @@
     };
 
     const createCharacter = () => {
-      const gender = document.querySelector('input[name="gender"]:checked').value;
+      const genderSelect = document.getElementById('gender-select');
+      const gender = genderSelect.value;
       userName = userNameInput.value;
       const userAvatar = userAvatarInput.files[0];
 
@@ -149,6 +489,7 @@
         reader.onload = (e) => {
           userAvatarUrl = e.target.result;
           userAvatarDisplay.src = userAvatarUrl;
+          userNameDisplay.textContent = userName;
           characterCreation.style.display = 'none';
           driverSelection.style.display = 'flex';
         };
@@ -158,12 +499,73 @@
       }
     };
 
+    const createRandomCharacter = () => {
+      const gender = Math.random() < 0.5 ? 'hombre' : 'mujer';
+      userName = gender === 'hombre' ? maleNames[Math.floor(Math.random() * maleNames.length)] : femaleNames[Math.floor(Math.random() * femaleNames.length)];
+      userAvatarUrl = "https://github.com/SebasOfEek/Games/blob/main/Img5.jpg?raw=true";
+      userAvatarDisplay.src = userAvatarUrl;
+      userNameDisplay.textContent = userName;
+      characterCreation.style.display = 'none';
+      driverSelection.style.display = 'flex';
+    };
+
     const selectDriver = (driverGender) => {
       const randomName = driverGender === 'hombre' ? maleNames[Math.floor(Math.random() * maleNames.length)] : femaleNames[Math.floor(Math.random() * femaleNames.length)];
-      const randomAvatar = driverAvatars[Math.floor(Math.random() * driverAvatars.length)];
+      const randomAvatar = driverGender === 'hombre' ? maleAvatars[Math.floor(Math.random() * maleAvatars.length)] : femaleAvatars[Math.floor(Math.random() * femaleAvatars.length)];
       driverAvatarDisplay.src = randomAvatar;
+      driverNameDisplay.textContent = randomName;
       alert(`Conductor seleccionado: ${randomName}`);
       // Aquí puedes agregar la lógica para iniciar el juego con el conductor seleccionado
+      driverProgressBar.style.display = 'block';
+      setTimeout(() => {
+        showLoadingScreen();
+      }, 5000); // Wait for 2 seconds before showing the loading screen
+    };
+
+    const showLoadingScreen = () => {
+      driverSelection.style.display = 'none';
+      loadingScreen.style.display = 'flex';
+      loadingScreen.innerHTML = '<h1>Por favor espere, creando destinos...</h1>';
+      setTimeout(() => {
+        loadingScreen.style.display = 'none';
+        showDestinationSelection();
+      }, 3000); // Simulate loading time
+    };
+
+    const showDestinationSelection = () => {
+      destinationSelection.style.display = 'flex';
+      destinationOptions.innerHTML = '';
+      
+      // Obtener 3 destinos aleatorios del array
+      const randomDestinations = [...destinations]
+        .sort(() => Math.random() - 0.5)
+        .slice(0, 3);
+  
+      randomDestinations.forEach(destination => {
+        const button = document.createElement('button');
+        button.textContent = `${destination.name} (${destination.time} min)`;
+        button.onclick = () => alert(`Has seleccionado ir a ${destination.name}. Tiempo estimado: ${destination.time} minutos`);
+        destinationOptions.appendChild(button);
+      });
+    };
+
+    const updateDriverProgress = () => {
+      let progressValue = 0;
+      const interval = setInterval(() => {
+        if (progressValue < 100) {
+          progressValue += 1;
+          driverProgress.style.width = progressValue + '%';
+        } else {
+          clearInterval(interval);
+        }
+      }, 100);
+    };
+
+    const increaseLoveBar = (amount) => {
+      let currentWidth = parseFloat(driverProgress.style.width) || 0;
+      currentWidth += amount;
+      if (currentWidth > 100) currentWidth = 100;
+      driverProgress.style.width = currentWidth + '%';
     };
   </script>
 </body>
