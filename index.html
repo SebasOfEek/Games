@@ -525,7 +525,7 @@ const destinations = [
     const showLoadingScreen = () => {
       driverSelection.style.display = 'none';
       loadingScreen.style.display = 'flex';
-      loadingScreen.innerHTML = '<h1>Por favor espere, creando destinos...</h1>';
+      loadingScreen.innerHTML = '<h1>Llamando a HotDrive...</h1>';
       setTimeout(() => {
         loadingScreen.style.display = 'none';
         showDestinationSelection();
